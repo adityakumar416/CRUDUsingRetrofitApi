@@ -1,11 +1,15 @@
 package com.example.crudretrofitapi.userAuthentication
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentRegistrationBinding
 import com.example.crudretrofitapi.model.UserRequest
@@ -15,8 +19,8 @@ import com.google.android.material.snackbar.Snackbar
 class RegistrationFragment : Fragment() {
  private lateinit var binding:FragmentRegistrationBinding
  private val registrationViewModel:RegistrationViewModel by viewModels()
-    private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
-
+   // private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+    private var notRegister = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,14 +38,15 @@ class RegistrationFragment : Fragment() {
                 binding.nameEditText.requestFocus()
                 Snackbar.make(binding.nameEditText, "Name is Mandatory.", Snackbar.LENGTH_SHORT).show();
 
-            } else if (binding.emailEditText.text!!.isEmpty()) {
+            }
+         /*   else if (binding.emailEditText.text!!.isEmpty() && email.matches(emailRegex.toRegex())) {
                 binding.emailEditText.requestFocus()
                 Snackbar.make(binding.emailEditText, "Email is Mandatory.", Snackbar.LENGTH_SHORT).show()
-            }
-            else if (email.matches(emailRegex.toRegex())) {
-                binding.emailEditText.requestFocus()
-                Snackbar.make(binding.emailEditText, "Enter a Valid Email.", Snackbar.LENGTH_SHORT).show()
+            }*/
 
+            else if (!Patterns.EMAIL_ADDRESS.matcher( binding.emailEditText.text.toString()).matches()) {
+                binding.emailEditText.requestFocus()
+                Snackbar.make(binding.emailEditText, "Enter a valid Email.", Snackbar.LENGTH_SHORT).show()
             }
             else if (binding.passwordEditText.text!!.isEmpty()) {
                 binding.passwordEditText.requestFocus()
@@ -53,11 +58,35 @@ class RegistrationFragment : Fragment() {
             }
 
             else{
-                    val userRequest = UserRequest(name,email,password,confirmPassword)
-                    registrationViewModel.registerUser(userRequest)
+                    if(notRegister){
+                        registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
+                            Observer {  response->
+                                if(response){
+                                    Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
+                                }
+                                else{
+                                    val userRequest = UserRequest(name,email,password,confirmPassword)
+                                    registrationViewModel.registerUser(userRequest)?.observe(viewLifecycleOwner,
+                                        Observer {
+                                            Toast.makeText(requireContext(),"Registration Successful", Toast.LENGTH_SHORT).show()
+
+                                        })
+                                }
+
+                            })
+                        notRegister = false
+                    }
+                else{
+                        registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
+
+                    }
             }
         }
 
+        binding.signIn.setOnClickListener {
+            findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
+
+        }
 
         return binding.root
     }
