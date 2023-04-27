@@ -1,5 +1,6 @@
 package com.example.crudretrofitapi.userAuthentication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentLoginBinding
+import com.example.crudretrofitapi.noteHome.DashboardActivity
 import com.example.crudretrofitapi.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -50,6 +52,9 @@ class LoginFragment : Fragment() {
                                 }
                                 else{
                                     Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(requireContext(),DashboardActivity::class.java)
+                                    startActivity(intent)
+
 
                                 }
                             })
@@ -65,7 +70,7 @@ class LoginFragment : Fragment() {
 
         binding.signUp.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
-            findNavController().popBackStack()
+
         }
 
 
