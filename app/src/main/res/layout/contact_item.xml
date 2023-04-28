@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="84dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_medium"
             android:text="Name :"
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="162dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/poppins_medium"
             android:singleLine="true"
             android:text="Aditya Kumar"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="84dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="38dp"
             android:fontFamily="@font/poppins_medium"
             android:text="Phone :"
             android:textSize="20sp" />
@@ -62,9 +62,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="162dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="38dp"
             android:fontFamily="@font/poppins_medium"
             android:text="8979116063"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="62dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Email :"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/contact_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            android:layout_marginTop="62dp"
+            android:singleLine="true"
+            android:fontFamily="@font/poppins_medium"
+            android:text="Aditya0683624@gmail.com"
             android:textSize="20sp" />
 
 

@@ -1,5 +1,6 @@
 package com.example.crudretrofitapi.userAuthentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -13,6 +14,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentRegistrationBinding
 import com.example.crudretrofitapi.model.UserRequest
+import com.example.crudretrofitapi.model.UserResponse
+import com.example.crudretrofitapi.noteHome.DashboardActivity
+import com.example.crudretrofitapi.sharedPreference.Constant
+import com.example.crudretrofitapi.sharedPreference.PrefManager
 import com.example.crudretrofitapi.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -20,6 +25,8 @@ class RegistrationFragment : Fragment() {
  private lateinit var binding:FragmentRegistrationBinding
  private val registrationViewModel:RegistrationViewModel by viewModels()
    // private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
+     lateinit var sharedPreferences:PrefManager
+
     private var notRegister = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +34,8 @@ class RegistrationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding= FragmentRegistrationBinding.inflate(inflater, container, false)
+
+        sharedPreferences = PrefManager(requireActivity())
 
         binding.signUpBtn.setOnClickListener {
             val name = binding.nameEditText.text.toString()
@@ -68,6 +77,10 @@ class RegistrationFragment : Fragment() {
                                     val userRequest = UserRequest(name,email,password,confirmPassword)
                                     registrationViewModel.registerUser(userRequest)?.observe(viewLifecycleOwner,
                                         Observer {
+
+                                            sharedPreferences.userEmail(Constant.PREF_IS_EMAIL,binding.emailEditText.text.toString())
+                                            sharedPreferences.userName(Constant.PREF_IS_NAME,binding.nameEditText.text.toString())
+
                                             Toast.makeText(requireContext(),"Registration Successful", Toast.LENGTH_SHORT).show()
 
                                         })
