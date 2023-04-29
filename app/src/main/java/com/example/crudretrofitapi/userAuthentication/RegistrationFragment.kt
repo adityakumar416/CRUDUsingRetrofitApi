@@ -1,6 +1,5 @@
 package com.example.crudretrofitapi.userAuthentication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -13,17 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentRegistrationBinding
-import com.example.crudretrofitapi.model.UserRequest
-import com.example.crudretrofitapi.model.UserResponse
-import com.example.crudretrofitapi.noteHome.DashboardActivity
+import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
 import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
-import com.example.crudretrofitapi.userViewModel.RegistrationViewModel
+import com.example.crudretrofitapi.userAuthentication.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class RegistrationFragment : Fragment() {
  private lateinit var binding:FragmentRegistrationBinding
- private val registrationViewModel:RegistrationViewModel by viewModels()
+ private val registrationViewModel: RegistrationViewModel by viewModels()
    // private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
      lateinit var sharedPreferences:PrefManager
 
@@ -70,20 +67,21 @@ class RegistrationFragment : Fragment() {
                     if(notRegister){
                         registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
                             Observer {  response->
-                                if(response){
+                                if(response!=null){
                                     Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
                                 }
-                                else{
+                                else {
                                     val userRequest = UserRequest(name,email,password,confirmPassword)
                                     registrationViewModel.registerUser(userRequest)?.observe(viewLifecycleOwner,
                                         Observer {
-
-                                            sharedPreferences.userEmail(Constant.PREF_IS_EMAIL,binding.emailEditText.text.toString())
-                                            sharedPreferences.userName(Constant.PREF_IS_NAME,binding.nameEditText.text.toString())
-
-                                            Toast.makeText(requireContext(),"Registration Successful", Toast.LENGTH_SHORT).show()
+                                                        Toast.makeText(
+                                                            requireContext(),
+                                                            "Registration Successful",
+                                                            Toast.LENGTH_SHORT
+                                                        ).show()
 
                                         })
+                                   
                                 }
 
                             })
@@ -93,6 +91,11 @@ class RegistrationFragment : Fragment() {
                         registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
 
                     }
+
+                sharedPreferences.userEmail(Constant.PREF_IS_EMAIL,binding.emailEditText.text.toString())
+
+                sharedPreferences.userName(Constant.PREF_IS_NAME,binding.nameEditText.text.toString())
+
             }
         }
 

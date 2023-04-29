@@ -1,4 +1,4 @@
-package com.example.crudretrofitapi.model
+package com.example.crudretrofitapi.userAuthentication.model.getAllUser
 
 data class ParticularUserResponseItem(
     val _id: String = "",

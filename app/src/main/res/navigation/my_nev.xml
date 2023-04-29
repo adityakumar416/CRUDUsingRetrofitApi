@@ -28,7 +28,7 @@
     </fragment>
     <activity
         android:id="@+id/dashboardActivity"
-        android:name="com.example.crudretrofitapi.noteHome.DashboardActivity"
+        android:name="com.example.crudretrofitapi.contactHome.DashboardActivity"
         android:label="activity_dashboard"
         tools:layout="@layout/activity_dashboard" />
 </navigation>

@@ -1,12 +1,12 @@
-package com.example.crudretrofitapi.userViewModel
+package com.example.crudretrofitapi.userAuthentication.userViewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crudretrofitapi.model.ParticularUserResponseItem
-import com.example.crudretrofitapi.model.UserRequest
-import com.example.crudretrofitapi.model.UserResponse
-import com.example.crudretrofitapi.repository.UserRepository
+import com.example.crudretrofitapi.userAuthentication.model.getAllUser.ParticularUserResponseItem
+import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
+import com.example.crudretrofitapi.userAuthentication.model.signup.UserResponse
+import com.example.crudretrofitapi.userAuthentication.repository.UserRepository
 
 class RegistrationViewModel:ViewModel() {
 

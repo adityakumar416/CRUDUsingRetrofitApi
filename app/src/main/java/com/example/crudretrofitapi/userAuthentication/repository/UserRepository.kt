@@ -1,15 +1,12 @@
-package com.example.crudretrofitapi.repository
+package com.example.crudretrofitapi.userAuthentication.repository
 
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.crudretrofitapi.model.GetAllUserResponse
-import com.example.crudretrofitapi.model.ParticularUserResponseItem
-import com.example.crudretrofitapi.model.UserRequest
-import com.example.crudretrofitapi.model.UserResponse
-import com.example.crudretrofitapi.retrofit.ApiInterface
-import com.example.crudretrofitapi.retrofit.RetrofitInstance
+import com.example.crudretrofitapi.userAuthentication.model.getAllUser.GetAllUserResponse
+import com.example.crudretrofitapi.userAuthentication.model.getAllUser.ParticularUserResponseItem
+import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
+import com.example.crudretrofitapi.userAuthentication.model.signup.UserResponse
+import com.example.crudretrofitapi.userAuthentication.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +33,7 @@ object UserRepository {
                     userResponse.value = response.body()
 
 
+
                 }
 
                 override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
@@ -60,7 +58,7 @@ object UserRepository {
                 getAllUserResponse.value = response.body()
 
                 getSingleUserResponse.value = getAllUserResponse.value?.let {
-                    verifyUser(it,email,password)?: ParticularUserResponseItem()
+                    verifyUser(it,email,password) ?: ParticularUserResponseItem()
                 }
 
 

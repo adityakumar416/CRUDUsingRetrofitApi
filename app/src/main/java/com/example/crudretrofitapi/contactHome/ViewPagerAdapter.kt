@@ -1,10 +1,10 @@
-package com.example.crudretrofitapi.adapter
+package com.example.crudretrofitapi.contactHome
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.crudretrofitapi.noteHome.AddContactFragment
-import com.example.crudretrofitapi.noteHome.DisplayContactFragment
+import com.example.crudretrofitapi.contactHome.addContact.AddContactFragment
+import com.example.crudretrofitapi.contactHome.displayContact.DisplayContactFragment
 
 class ViewPagerAdapter(activity:FragmentActivity):FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {

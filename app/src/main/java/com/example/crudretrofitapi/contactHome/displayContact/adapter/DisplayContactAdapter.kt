@@ -1,12 +1,16 @@
-package com.example.crudretrofitapi.adapter
+package com.example.crudretrofitapi.contactHome.displayContact.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.crudretrofitapi.R
+import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponse
 
 class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHolder>() {
+
+    private var contactList = AllContactResponse()
+
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
@@ -26,8 +30,12 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
 
     override fun getItemCount(): Int {
 
-        return 5
+        return contactList.size
 
+    }
+    fun setData(contactList:AllContactResponse){
+        this.contactList = contactList
+        notifyDataSetChanged()
     }
 
 

@@ -12,18 +12,19 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentLoginBinding
-import com.example.crudretrofitapi.model.UserResponse
-import com.example.crudretrofitapi.noteHome.DashboardActivity
+import com.example.crudretrofitapi.contactHome.DashboardActivity
 import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
-import com.example.crudretrofitapi.userViewModel.RegistrationViewModel
+import com.example.crudretrofitapi.userAuthentication.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment() {
  private lateinit var binding: FragmentLoginBinding
     private val emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\$"
-    private val registrationViewModel:RegistrationViewModel by viewModels()
+    private val registrationViewModel: RegistrationViewModel by viewModels()
     private var notRegisterLoginObserver= true
+
+
     private lateinit var prefManager:PrefManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,9 +59,9 @@ class LoginFragment : Fragment() {
 
                                 }
                                 else{
-                                    val checkEmail = prefManager.getValue(Constant.PREF_IS_EMAIL)
+                                   // val checkEmail = prefManager.getValue(Constant.PREF_IS_EMAIL)
 
-                                    if(email==checkEmail){
+                                    if(email==response.email){
                                         Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_SHORT).show()
                                         prefManager.checkLogin(Constant.PREF_IS_LOGIN,true)
                                        prefManager.userId(Constant.PREF_IS_USER_ID,response._id)
@@ -68,7 +69,7 @@ class LoginFragment : Fragment() {
                                         startActivity(intent)
                                     }
                                     else{
-                                        Toast.makeText(requireContext(),"Incorrect Password or Email",Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(requireContext(),"Please Register",Toast.LENGTH_SHORT).show()
 
                                     }
 

@@ -1,4 +1,4 @@
-package com.example.crudretrofitapi.model
+package com.example.crudretrofitapi.userAuthentication.model.signup
 
 data class UserResponse(
     val _id: String,

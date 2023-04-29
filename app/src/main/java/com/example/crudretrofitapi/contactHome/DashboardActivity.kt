@@ -1,9 +1,7 @@
-package com.example.crudretrofitapi.noteHome
+package com.example.crudretrofitapi.contactHome
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.crudretrofitapi.R
-import com.example.crudretrofitapi.adapter.ViewPagerAdapter
 import com.example.crudretrofitapi.databinding.ActivityDashboardBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
