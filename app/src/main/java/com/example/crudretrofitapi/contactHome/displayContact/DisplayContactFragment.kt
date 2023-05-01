@@ -12,13 +12,14 @@ import com.example.crudretrofitapi.contactHome.displayContact.adapter.DisplayCon
 import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponse
 import com.example.crudretrofitapi.contactHome.displayContact.viewModel.ContactViewModel
 import com.example.crudretrofitapi.databinding.FragmentDisplayContactBinding
+import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
 
 class DisplayContactFragment : Fragment() {
 
     private lateinit var binding: FragmentDisplayContactBinding
     private val contactViewModel:ContactViewModel by viewModels()
-    private val prefManager:PrefManager
+    private lateinit var prefManager:PrefManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +27,7 @@ class DisplayContactFragment : Fragment() {
         // Inflate the layout for this fragment
         binding =  FragmentDisplayContactBinding.inflate(inflater, container, false)
 
+        prefManager = PrefManager(requireContext())
         val adapter = DisplayContactAdapter()
         val recyclerView = binding.recyclerView
 
@@ -38,9 +40,9 @@ class DisplayContactFragment : Fragment() {
            adapter.setData(newList)
        }
 
+        val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
 
-
-        contactViewModel.getAllContact()?.observe(viewLifecycleOwner,listObserver)
+        contactViewModel.getAllContact(id.toString())?.observe(viewLifecycleOwner,listObserver)
 
 
 

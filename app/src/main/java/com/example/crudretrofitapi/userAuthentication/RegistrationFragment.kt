@@ -67,7 +67,7 @@ class RegistrationFragment : Fragment() {
                     if(notRegister){
                         registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
                             Observer {  response->
-                                if(response!=null){
+                                if(response){
                                     Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
                                 }
                                 else {

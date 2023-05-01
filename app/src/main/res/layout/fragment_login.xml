@@ -51,7 +51,7 @@
             android:id="@+id/email_edit_text"
             android:layout_width="match_parent"
             android:singleLine="true"
-            android:inputType="number"
+            android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
             android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
