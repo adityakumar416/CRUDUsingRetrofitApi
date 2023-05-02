@@ -2,10 +2,14 @@ package com.example.crudretrofitapi.userAuthentication.repository
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.crudretrofitapi.contactHome.addContact.model.ContactData
+import com.example.crudretrofitapi.contactHome.addContact.model.ContactDataItem
+import com.example.crudretrofitapi.contactHome.addContact.repository.ContactRepository
 import com.example.crudretrofitapi.userAuthentication.model.getAllUser.GetAllUserResponse
 import com.example.crudretrofitapi.userAuthentication.model.getAllUser.ParticularUserResponseItem
 import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
 import com.example.crudretrofitapi.userAuthentication.model.signup.UserResponse
+import com.example.crudretrofitapi.userAuthentication.repository.UserRepository.contactModel
 import com.example.crudretrofitapi.userAuthentication.retrofit.RetrofitInstance
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,6 +21,8 @@ object UserRepository {
     val getAllUserResponse = MutableLiveData<GetAllUserResponse>()
 
     val getSingleUserResponse = MutableLiveData<ParticularUserResponseItem>()
+
+    val contactModel = MutableLiveData<ContactData>()
 
 
     fun registerUser(userRequest: UserRequest):MutableLiveData<UserResponse>{
@@ -108,6 +114,25 @@ object UserRepository {
         return user.any {
             user-> user.email == email
         }
+
+    }
+
+
+
+    fun addUser(contactDataItem: ContactDataItem):MutableLiveData<ContactData>{
+        val call = RetrofitInstance.apiInterface.addContact(contactDataItem)
+        call.enqueue(object : Callback<ContactData?> {
+            override fun onResponse(call: Call<ContactData?>, response: Response<ContactData?>) {
+                Log.i("error", response.toString())
+                contactModel.value = response.body()
+            }
+
+            override fun onFailure(call: Call<ContactData?>, t: Throwable) {
+                Log.i("error", t.message.toString())
+
+            }
+        })
+        return contactModel
 
     }
 

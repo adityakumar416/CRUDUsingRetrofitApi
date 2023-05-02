@@ -7,30 +7,19 @@
     tools:context=".userAuthentication.LoginFragment">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:layout_marginTop="44dp"
-        android:src="@drawable/add_contact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Contact !"
-        android:textColor="#6C8E74"
+        android:textColor="#1b1d1c"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias=".06" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".24" />
 
 
 
@@ -44,7 +33,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:startIconDrawable="@drawable/person_icon"
-        app:startIconTint="#6C8E74"
+        app:startIconTint="#1b1d1c"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -67,7 +56,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         app:startIconDrawable="@drawable/phone_icon"
-        app:startIconTint="#6C8E74"
+        app:startIconTint="#1b1d1c"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_text_input">
@@ -81,6 +70,28 @@
             android:hint="Mobile" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_text_input"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:startIconDrawable="@drawable/email_icon"
+        app:startIconTint="#1b1d1c"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number_text_input">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            android:layout_height="wrap_content"
+            android:hint="E mail" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 
@@ -97,7 +108,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number_text_input"
+        app:layout_constraintTop_toBottomOf="@+id/email_text_input"
         app:layout_constraintVertical_bias="0.202" />
 
 
