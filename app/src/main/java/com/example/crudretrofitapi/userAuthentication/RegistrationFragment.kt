@@ -92,12 +92,13 @@ class RegistrationFragment : Fragment() {
 
                     }
 
-                sharedPreferences.userEmail(Constant.PREF_IS_EMAIL,binding.emailEditText.text.toString())
-
-                sharedPreferences.userName(Constant.PREF_IS_NAME,binding.nameEditText.text.toString())
-
             }
         }
+
+
+        sharedPreferences.userEmail(Constant.PREF_IS_EMAIL,binding.emailEditText.text.toString())
+
+        sharedPreferences.userName(Constant.PREF_IS_NAME,binding.nameEditText.text.toString())
 
         binding.signIn.setOnClickListener {
             findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)

@@ -41,7 +41,7 @@ class DisplayContactFragment : Fragment() {
        }
 
         val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
-
+        binding.textView3.text = id.toString()
         contactViewModel.getAllContact(id.toString())?.observe(viewLifecycleOwner,listObserver)
 
 

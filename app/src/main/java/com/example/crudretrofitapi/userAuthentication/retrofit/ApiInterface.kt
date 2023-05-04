@@ -1,9 +1,9 @@
 package com.example.crudretrofitapi.userAuthentication.retrofit
 
-import android.service.autofill.UserData
-import com.example.crudretrofitapi.contactHome.addContact.model.ContactData
-import com.example.crudretrofitapi.contactHome.addContact.model.ContactDataItem
+import com.example.crudretrofitapi.contactHome.addContact.model.AddContactRequest
+import com.example.crudretrofitapi.contactHome.addContact.model.AddContactResponse
 import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponse
+import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponseItem
 import com.example.crudretrofitapi.userAuthentication.model.getAllUser.GetAllUserResponse
 import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
 import com.example.crudretrofitapi.userAuthentication.model.signup.UserResponse
@@ -18,8 +18,8 @@ interface ApiInterface {
     @POST("signup")
     fun registerUser(@Body userModel: UserRequest) : Call<UserResponse>
 
-    @POST("add")
-    fun addContact(@Body contactDataItem: ContactDataItem) : Call<ContactData>
+    @POST("{id}")
+    fun addContact(@Path("id") id : String,@Body addContactRequest: AddContactRequest) : Call<AddContactResponse>
 
     @GET("signup")
     fun getAllUser(): Call<GetAllUserResponse>
