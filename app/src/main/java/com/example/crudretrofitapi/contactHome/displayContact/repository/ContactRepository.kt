@@ -9,6 +9,7 @@ import com.example.crudretrofitapi.contactHome.addContact.model.AddContactRespon
 
 import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponse
 import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponseItem
+import com.example.crudretrofitapi.contactHome.update.model.UpdateModel
 import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
 import com.example.crudretrofitapi.userAuthentication.retrofit.RetrofitInstance
@@ -20,7 +21,8 @@ object ContactRepository {
 
     var getAllContactResponse = MutableLiveData<AllContactResponse>()
     var contactResponse = MutableLiveData<AddContactResponse>()
-
+    var updateContact = MutableLiveData<AddContactResponse>()
+    var deleteContact = MutableLiveData<Boolean>()
 
     fun getAllContact(id:String):MutableLiveData<AllContactResponse>{
 
@@ -62,6 +64,40 @@ object ContactRepository {
             return contactResponse
     }
 
+
+    fun updateUser(id: String,contactDataItem: UpdateModel){
+         RetrofitInstance.apiInterface.updateContact(id,contactDataItem)
+
+    }
+
+    fun deleteContact(id:String,idOfContact: String):MutableLiveData<Boolean>{
+        val call = RetrofitInstance.apiInterface.deleteContact(id,idOfContact)
+
+        call.enqueue(object : Callback<Any?> {
+            override fun onResponse(
+                call: Call<Any?>,
+                response: Response<Any?>
+            ) {
+
+                if(response.code()==200){
+                    deleteContact.value = true
+                }
+                else{
+                    deleteContact.value = false
+
+                }
+            }
+
+            override fun onFailure(call: Call<Any?>, t: Throwable) {
+                Log.i("error", t.message.toString())
+            }
+
+
+        })
+
+
+        return deleteContact
+    }
 
 
 }

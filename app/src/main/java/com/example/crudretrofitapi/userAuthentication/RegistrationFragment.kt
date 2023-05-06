@@ -1,6 +1,7 @@
 package com.example.crudretrofitapi.userAuthentication
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -68,19 +69,17 @@ class RegistrationFragment : Fragment() {
                         registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
                             Observer {  response->
                                 if(response){
+                                    Log.i(response.toString(),"User Exist Register Fragment")
                                     Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
                                 }
                                 else {
                                     val userRequest = UserRequest(name,email,password,confirmPassword)
-                                    registrationViewModel.registerUser(userRequest)?.observe(viewLifecycleOwner,
-                                        Observer {
+                                    registrationViewModel.registerUser(userRequest)
                                                         Toast.makeText(
                                                             requireContext(),
                                                             "Registration Successful",
                                                             Toast.LENGTH_SHORT
                                                         ).show()
-
-                                        })
                                    
                                 }
 

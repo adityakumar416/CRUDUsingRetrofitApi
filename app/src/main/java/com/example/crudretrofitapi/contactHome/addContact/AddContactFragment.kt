@@ -15,6 +15,8 @@ import com.example.crudretrofitapi.contactHome.displayContact.viewModel.ContactV
 import com.example.crudretrofitapi.databinding.FragmentAddContactBinding
 import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
+import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
+import com.example.crudretrofitapi.userAuthentication.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -23,6 +25,8 @@ class AddContactFragment : Fragment() {
     private lateinit var binding: FragmentAddContactBinding
     private lateinit var prefManager: PrefManager
     private val contactViewModel: ContactViewModel by viewModels()
+    private val registrationViewModel:RegistrationViewModel by viewModels()
+    private var notRegister = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,28 +64,37 @@ class AddContactFragment : Fragment() {
                     Snackbar.LENGTH_SHORT
                 ).show();
             }
+
+
             else{
+            if(notRegister){
+                registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
+                    Observer {  response->
+                        if(response){
+                            Log.i(response.toString(),"User Exist Register Fragment")
+                            Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
+                        }
+                        else{
 
-                val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
+                            val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
 
-                val contactModel = AddContactRequest(email,name,number)
-                contactViewModel.addContact(id.toString(),contactModel)?.observe(viewLifecycleOwner,
-                    Observer {
-                    Toast.makeText(context,"User is Save", Toast.LENGTH_SHORT).show()
+                            val contactModel = AddContactRequest(email,name,number)
+                            contactViewModel.addContact(id.toString(),contactModel)
+                            Toast.makeText(requireContext(),"User is Save", Toast.LENGTH_SHORT).show()
+                            Log.i(it.toString(),"User Save Add Fragment")
+                        }
 
-
-                })
-
-
+                    })
+                notRegister = false
+            }
+            else{
+                registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
 
             }
 
-
         }
 
-
-
-
+        }
 
         return binding.root
 
