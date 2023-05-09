@@ -23,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 class UpdateContactFragment : Fragment() {
 
     private lateinit var binding:FragmentUpdateContactBinding
+    private val args by navArgs<UpdateContactFragmentArgs>()
 
     private lateinit var prefManager: PrefManager
     private val contactViewModel: ContactViewModel by viewModels()
@@ -34,6 +35,10 @@ class UpdateContactFragment : Fragment() {
         // Inflate the layout for this fragment
         binding =  FragmentUpdateContactBinding.inflate(layoutInflater, container, false)
 
+
+        binding.updateNameEditText.setText(args.currentUser.name)
+        binding.updateNumberEditText.setText(args.currentUser.number)
+        binding.updateEmailEditText.setText(args.currentUser.email)
 
         prefManager = PrefManager(requireContext())
 
@@ -72,7 +77,7 @@ class UpdateContactFragment : Fragment() {
 
                                 val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
 
-                                val allContactResponseItem = UpdateModel(email,name,number)
+                                val allContactResponseItem = AllContactResponseItem(id.toString(),email,name,number)
                                 contactViewModel.updateContact(id.toString(),allContactResponseItem)
                              Toast.makeText(requireContext(),"Contact is Update", Toast.LENGTH_SHORT).show()
                                 Log.i(it.toString(),"User Save Add Fragment")

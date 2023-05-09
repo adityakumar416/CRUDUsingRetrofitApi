@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_contact_dashboard"
+    app:startDestination="@id/show_contact">
+    <fragment
+        android:id="@+id/show_contact"
+        android:name="com.example.crudretrofitapi.contactHome.displayContact.DisplayContactFragment"
+        tools:layout="@layout/fragment_display_contact" >
+        <action
+            android:id="@+id/action_show_contact_to_updateContactFragment"
+            app:destination="@id/updateContactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateContactFragment"
+        android:name="com.example.crudretrofitapi.contactHome.update.UpdateContactFragment"
+        android:label="UpdateContactFragment"
+        tools:layout="@layout/fragment_update_contact">
+        <argument
+            android:name="currentUser"
+            app:argType="com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponseItem" />
+    </fragment>
+
+</navigation>

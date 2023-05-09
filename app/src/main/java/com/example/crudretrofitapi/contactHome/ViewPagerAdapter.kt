@@ -6,6 +6,15 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.crudretrofitapi.contactHome.addContact.AddContactFragment
 import com.example.crudretrofitapi.contactHome.displayContact.DisplayContactFragment
 
+class ViewPagerAdapter(activity:FragmentActivity,private val fragmentList:List<Fragment>):FragmentStateAdapter(activity) {
+    override fun getItemCount(): Int {
+        return fragmentList.size
+    }
+
+    override fun createFragment(position: Int) = fragmentList[position]
+}
+
+/*
 class ViewPagerAdapter(activity:FragmentActivity):FragmentStateAdapter(activity) {
     override fun getItemCount(): Int {
         return 2
@@ -19,4 +28,4 @@ class ViewPagerAdapter(activity:FragmentActivity):FragmentStateAdapter(activity)
             else -> throw IllegalArgumentException("Invalid Position: $position")
         }
     }
-}
+}*/

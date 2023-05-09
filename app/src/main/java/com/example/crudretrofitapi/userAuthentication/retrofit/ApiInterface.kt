@@ -31,7 +31,7 @@ interface ApiInterface {
     fun getAllContact(@Path("id") id : String) : Call<AllContactResponse>
 
     @PUT("{id}")
-    fun updateContact(@Path("id") id : String,@Body addContactRequest: UpdateModel)
+    fun updateContact(@Path("id") id : String,@Body addContactRequest: AllContactResponseItem)
 
     @DELETE("{userid}/{contactid}")
     fun deleteContact(@Path("userid") userid : String,@Path("contactid") contactId:String) : Call<Any>

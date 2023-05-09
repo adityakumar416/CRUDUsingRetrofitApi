@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.crudretrofitapi.LoadingDialog
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentRegistrationBinding
 import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
@@ -35,6 +36,7 @@ class RegistrationFragment : Fragment() {
 
         sharedPreferences = PrefManager(requireActivity())
 
+        val loading = LoadingDialog(requireActivity())
         binding.signUpBtn.setOnClickListener {
             val name = binding.nameEditText.text.toString()
             val email = binding.emailEditText.text.toString()
@@ -66,9 +68,11 @@ class RegistrationFragment : Fragment() {
 
             else{
                     if(notRegister){
+                        loading.startLoading()
                         registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
                             Observer {  response->
                                 if(response){
+                                    loading.isDismiss()
                                     Log.i(response.toString(),"User Exist Register Fragment")
                                     Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
                                 }
@@ -80,7 +84,7 @@ class RegistrationFragment : Fragment() {
                                                             "Registration Successful",
                                                             Toast.LENGTH_SHORT
                                                         ).show()
-                                   
+                                   loading.isDismiss()
                                 }
 
                             })
@@ -88,9 +92,8 @@ class RegistrationFragment : Fragment() {
                     }
                 else{
                         registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
-
+                        loading.isDismiss()
                     }
-
             }
         }
 

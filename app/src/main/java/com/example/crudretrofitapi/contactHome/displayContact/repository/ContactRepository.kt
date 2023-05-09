@@ -65,7 +65,7 @@ object ContactRepository {
     }
 
 
-    fun updateUser(id: String,contactDataItem: UpdateModel){
+    fun updateUser(id: String,contactDataItem: AllContactResponseItem){
          RetrofitInstance.apiInterface.updateContact(id,contactDataItem)
 
     }

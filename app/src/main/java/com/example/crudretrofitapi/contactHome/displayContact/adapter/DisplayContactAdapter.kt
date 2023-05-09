@@ -19,6 +19,7 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
 
     private var contactList = AllContactResponse()
     var deleteContact:DeleteContact?=null
+    var updateContact:DeleteContact?=null
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
@@ -48,10 +49,9 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
             deleteContact?.deleteContact(contactList[position])
 
         }
- /*       holder.itemView.findViewById<CardView>(R.id.contact_item).setOnClickListener {
-            val action = DisplayContactFragmentDirections.actionDisplayContactFragmentToUpdateContactFragment(contactList[position])
-            holder.itemView.findNavController().navigate(action)
-        }*/
+        holder.itemView.findViewById<CardView>(R.id.contact_item).setOnClickListener {
+            updateContact?.updateContact(contactList[position])
+        }
     }
 
     override fun getItemCount(): Int {

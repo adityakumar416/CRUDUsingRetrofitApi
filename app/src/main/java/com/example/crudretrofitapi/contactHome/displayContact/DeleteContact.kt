@@ -5,4 +5,5 @@ import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactRe
 
 interface DeleteContact {
     fun deleteContact(allContactResponseItem: AllContactResponseItem)
+    fun updateContact(contact:AllContactResponseItem)
 }

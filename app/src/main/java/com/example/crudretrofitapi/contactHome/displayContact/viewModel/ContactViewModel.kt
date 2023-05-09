@@ -32,7 +32,7 @@ class ContactViewModel : ViewModel() {
         return addViewModel
     }
 
-    fun updateContact(id: String,contactDataItem: UpdateModel){
+    fun updateContact(id: String,contactDataItem: AllContactResponseItem){
        ContactRepository.updateUser(id,contactDataItem)
 
     }

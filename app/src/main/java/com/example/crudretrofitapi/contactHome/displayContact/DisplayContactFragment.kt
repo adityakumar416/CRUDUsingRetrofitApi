@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crudretrofitapi.contactHome.addContact.model.AddContactResponse
 import com.example.crudretrofitapi.contactHome.displayContact.adapter.DisplayContactAdapter
@@ -68,6 +69,11 @@ class DisplayContactFragment : Fragment(),DeleteContact {
         Toast.makeText(requireContext(),"Contact is Delete.", Toast.LENGTH_SHORT).show()
 
 
+    }
+
+    override fun updateContact(contact: AllContactResponseItem) {
+        val action = DisplayContactFragmentDirections.actionShowContactToUpdateContactFragment(contact)
+        findNavController().navigate(action)
     }
 
 }

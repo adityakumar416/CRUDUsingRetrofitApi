@@ -14,22 +14,31 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 
 class DashboardActivity : AppCompatActivity() {
+    private lateinit var displayContactNavHost: NavHostFragment
+    private lateinit var addContactNavHost: NavHostFragment
+
     private lateinit var binding:ActivityDashboardBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val nevView:BottomNavigationView = binding.bottomNavigationView
+    /*    val nevView:BottomNavigationView = binding.bottomNavigationView
         val navController = findNavController(R.id.fragmentContainer)
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.add_contact,R.id.show_contact))
         setupActionBarWithNavController(navController,appBarConfiguration)
         nevView.setupWithNavController(navController)
+*/
 
+        displayContactNavHost = NavHostFragment.create(R.navigation.dashboard_show_contact_nev)
+        addContactNavHost = NavHostFragment.create(R.navigation.dashboard_add_contact_nev)
 
-/*
+        val fragmentHost = listOf(
+            addContactNavHost,
+            displayContactNavHost
+        )
 
-        binding.viewPager.adapter = ViewPagerAdapter(this)
+        binding.viewPager.adapter = ViewPagerAdapter(this,fragmentHost)
 
         TabLayoutMediator(binding.tabTabLayout,binding.viewPager){
             tab,position->
@@ -39,7 +48,6 @@ class DashboardActivity : AppCompatActivity() {
             }
         }.attach()
 
-*/
 
     }
 }
