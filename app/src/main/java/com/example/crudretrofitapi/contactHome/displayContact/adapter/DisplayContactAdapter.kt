@@ -19,7 +19,6 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
 
     private var contactList = AllContactResponse()
     var deleteContact:DeleteContact?=null
-    var updateContact:DeleteContact?=null
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
@@ -50,7 +49,7 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
 
         }
         holder.itemView.findViewById<CardView>(R.id.contact_item).setOnClickListener {
-            updateContact?.updateContact(contactList[position])
+            deleteContact?.updateContact(contactList[position])
         }
     }
 

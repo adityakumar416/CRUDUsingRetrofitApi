@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.contactHome.addContact.model.AddContactRequest
@@ -77,11 +79,18 @@ class UpdateContactFragment : Fragment() {
 
                                 val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
 
-                                val allContactResponseItem = AllContactResponseItem(id.toString(),email,name,number)
-                                contactViewModel.updateContact(id.toString(),allContactResponseItem)
-                             Toast.makeText(requireContext(),"Contact is Update", Toast.LENGTH_SHORT).show()
-                                Log.i(it.toString(),"User Save Add Fragment")
+                                val updateContactRequestItem = UpdateModel(email,name,number)
+                                contactViewModel.updateContact(id.toString(),args.currentUser._id,updateContactRequestItem)?.observe(viewLifecycleOwner,
+                                    Observer{
+                                            response -> if(response ==true ) {
+                                        Toast.makeText(requireContext(),"Contact Updated Successfully",Toast.LENGTH_SHORT).show()
+                                        findNavController().popBackStack()
+                                    }
+                                    else {
+                                        Toast.makeText(requireContext(),"Something went wrong",Toast.LENGTH_SHORT).show()
 
+                                    }
+                                    })
             }
         }
 

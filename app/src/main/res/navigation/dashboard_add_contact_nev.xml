@@ -7,6 +7,8 @@
     <fragment
         android:id="@+id/add_contact"
         android:name="com.example.crudretrofitapi.contactHome.addContact.AddContactFragment"
-        tools:layout="@layout/fragment_add_contact" />
+        tools:layout="@layout/fragment_add_contact"
+        android:label="fragment_add_contact"
+        />
 
 </navigation>

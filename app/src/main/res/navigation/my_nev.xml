@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_registrationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_registrationFragment_to_addContactFragment"
-            app:destination="@id/addContactFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -25,15 +22,7 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_addContactFragment"
-            app:destination="@id/addContactFragment" />
     </fragment>
 
 
-    <fragment
-        tools:layout="@layout/fragment_add_contact"
-        android:id="@+id/addContactFragment"
-        android:name="com.example.crudretrofitapi.contactHome.addContact.AddContactFragment"
-        android:label="AddContactFragment" />
 </navigation>

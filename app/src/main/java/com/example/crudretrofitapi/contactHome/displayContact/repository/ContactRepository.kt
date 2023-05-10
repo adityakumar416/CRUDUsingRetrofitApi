@@ -21,7 +21,7 @@ object ContactRepository {
 
     var getAllContactResponse = MutableLiveData<AllContactResponse>()
     var contactResponse = MutableLiveData<AddContactResponse>()
-    var updateContact = MutableLiveData<AddContactResponse>()
+    var updateContact = MutableLiveData<Boolean>()
     var deleteContact = MutableLiveData<Boolean>()
 
     fun getAllContact(id:String):MutableLiveData<AllContactResponse>{
@@ -65,10 +65,29 @@ object ContactRepository {
     }
 
 
-    fun updateUser(id: String,contactDataItem: AllContactResponseItem){
-         RetrofitInstance.apiInterface.updateContact(id,contactDataItem)
+    fun updateUser(id:String,idOfContact: String,updateModel: UpdateModel):MutableLiveData<Boolean>{
+        val call = RetrofitInstance.apiInterface.updateContact(id,idOfContact,updateModel)
 
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void?>) {
+
+                Log.d("DEBUG upt cntct resp :",response.body().toString())
+
+                if(response.code()==200)
+                {
+                    updateContact.value= true
+                } else {
+                    updateContact.value= false
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.d("DEBUG error :",t.message.toString())
+            }
+        })
+        return updateContact
     }
+
 
     fun deleteContact(id:String,idOfContact: String):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.deleteContact(id,idOfContact)

@@ -99,7 +99,7 @@
         android:id="@+id/update_contact"
         android:layout_width="240dp"
         android:layout_height="55dp"
-        android:text="Save"
+        android:text="Update"
         android:textColor="@color/white"
         android:background="@drawable/btn_bg"
         android:textSize="26sp"
