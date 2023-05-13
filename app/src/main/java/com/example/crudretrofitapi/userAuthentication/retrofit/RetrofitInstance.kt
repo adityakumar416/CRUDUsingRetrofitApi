@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
 
     private val retrofit by lazy {
-        Retrofit.Builder().baseUrl("https://crudcrud.com/api/390786dcb0784d4ba5440171382fa330/")
+        Retrofit.Builder().baseUrl("https://crudcrud.com/api/a555e47467e94652b31aaaf9e54056f6/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient())
             .build()

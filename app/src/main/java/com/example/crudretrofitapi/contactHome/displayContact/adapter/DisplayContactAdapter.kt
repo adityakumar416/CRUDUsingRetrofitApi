@@ -3,6 +3,8 @@ package com.example.crudretrofitapi.contactHome.displayContact.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.navigation.findNavController
@@ -14,10 +16,13 @@ import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactRe
 import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponseItem
 import com.example.crudretrofitapi.contactHome.displayContact.repository.ContactRepository.deleteContact
 import de.hdodenhof.circleimageview.CircleImageView
+import java.util.*
 
-class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHolder>() {
+class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHolder>(),Filterable {
 
     private var contactList = AllContactResponse()
+    private var contactListCopy = AllContactResponse()
+    var filteredItemList = contactList
     var deleteContact:DeleteContact?=null
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
@@ -60,7 +65,37 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
     }
     fun setData(contactList:AllContactResponse){
         this.contactList = contactList
+        contactListCopy = this.contactList
         notifyDataSetChanged()
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                var filteredList = AllContactResponse()
+                if(constraint.isNullOrBlank()){
+                    filteredList = contactListCopy
+                }
+                else{
+                    val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
+                    contactListCopy.forEach {
+                        item->
+                        if(item.name.toLowerCase(Locale.ROOT).contains(filterPattern)){
+                            filteredList.add(item)
+                        }
+                    }
+                }
+                val filterResults = FilterResults()
+                filterResults.values = filteredList
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filteredItemList = results?.values as AllContactResponse
+                contactList = filteredItemList
+                notifyDataSetChanged()
+            }
+        }
     }
 
 

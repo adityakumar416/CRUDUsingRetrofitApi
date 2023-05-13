@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -47,6 +48,17 @@ class DisplayContactFragment : Fragment(),DeleteContact {
         recyclerView.adapter = adapter
         adapter.deleteContact = this
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return true
+            }
+        })
 
         val listObserver = Observer<AllContactResponse>{
                 newList->

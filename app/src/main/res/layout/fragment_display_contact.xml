@@ -6,17 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".contactHome.displayContact.DisplayContactFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@color/purple_200"
+        android:iconifiedByDefault="false"
+        android:layoutDirection="rtl"
+        android:searchIcon="@null"
+        android:layout_margin="12dp"
+        android:theme="@style/ThemeOverlay.SearchView"
+        app:closeIcon="@drawable/ic_baseline_close_24"
+        app:defaultQueryHint="Enter Name to Search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:searchIcon="@drawable/ic_baseline_search_24" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/recycler_view"
-        tools:listitem="@layout/contact_item"
-        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_bar"
+        tools:listitem="@layout/contact_item" />
 
     <TextView
         android:id="@+id/textView3"
