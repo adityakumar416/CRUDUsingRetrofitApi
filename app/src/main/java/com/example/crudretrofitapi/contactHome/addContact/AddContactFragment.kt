@@ -67,30 +67,12 @@ class AddContactFragment : Fragment() {
 
 
             else{
-            if(notRegister){
-                registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
-                    Observer {  response->
-                        if(response){
-                            Log.i(response.toString(),"User Exist Register Fragment")
-                            Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
-                        }
-                        else{
-
                             val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
-
                             val contactModel = AddContactRequest(email,name,number)
                             contactViewModel.addContact(id.toString(),contactModel)
                             Toast.makeText(requireContext(),"User is Save", Toast.LENGTH_SHORT).show()
                             Log.i(it.toString(),"User Save Add Fragment")
-                        }
 
-                    })
-                notRegister = false
-            }
-            else{
-                registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
-
-            }
 
         }
 

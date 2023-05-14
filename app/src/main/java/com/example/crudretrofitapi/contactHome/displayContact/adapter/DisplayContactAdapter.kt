@@ -80,7 +80,7 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
                     val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
                     contactListCopy.forEach {
                         item->
-                        if(item.name.toLowerCase(Locale.ROOT).contains(filterPattern)){
+                        if(item.name.toLowerCase(Locale.ROOT).contains(filterPattern) || item.number.contains(filterPattern) || item.email.contains(filterPattern)){
                             filteredList.add(item)
                         }
                     }
