@@ -27,17 +27,17 @@ class ContactViewModel : ViewModel() {
         return getAllContact
     }
 
-    fun addContact(id: String,contactDataItem: AddContactRequest): LiveData<AddContactResponse>?{
+    suspend fun addContact(id: String, contactDataItem: AddContactRequest): LiveData<AddContactResponse>?{
         addViewModel = ContactRepository.addUser(id,contactDataItem)
         return addViewModel
     }
 
-    fun updateContact(id: String,idOfContact:String,contactDataItem: UpdateModel):LiveData<Boolean>?{
+    suspend fun updateContact(id: String, idOfContact:String, contactDataItem: UpdateModel):LiveData<Boolean>?{
        updateContact = ContactRepository.updateUser(id,idOfContact,contactDataItem)
         return updateContact
 
     }
-    fun deleteContact(id: String,idOfContact:String):LiveData<Boolean>?{
+    suspend fun deleteContact(id: String, idOfContact:String):LiveData<Boolean>?{
         contactDelete = ContactRepository.deleteContact(id, idOfContact)
         return contactDelete
     }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.LoadingDialog
 import com.example.crudretrofitapi.R
@@ -19,6 +20,7 @@ import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
 import com.example.crudretrofitapi.userAuthentication.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class RegistrationFragment : Fragment() {
  private lateinit var binding:FragmentRegistrationBinding
@@ -67,33 +69,40 @@ class RegistrationFragment : Fragment() {
             }
 
             else{
-                    if(notRegister){
-                        loading.startLoading()
-                        registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
-                            Observer {  response->
-                                if(response){
-                                    loading.isDismiss()
-                                    Log.i(response.toString(),"User Exist Register Fragment")
-                                    Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
-                                }
-                                else {
-                                    val userRequest = UserRequest(name,email,password,confirmPassword)
-                                    registrationViewModel.registerUser(userRequest)
-                                                        Toast.makeText(
-                                                            requireContext(),
-                                                            "Registration Successful",
-                                                            Toast.LENGTH_SHORT
-                                                        ).show()
-                                   loading.isDismiss()
-                                }
 
-                            })
-                        notRegister = false
-                    }
-                else{
-                        registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
-                        loading.isDismiss()
-                    }
+                        lifecycleScope.launch {
+                            if(notRegister){
+                                loading.startLoading()
+                                registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
+                                    Observer {  response->
+                                        if(response){
+                                            loading.isDismiss()
+                                            Log.i(response.toString(),"User Exist Register Fragment")
+                                            Toast.makeText(requireContext(),"User Already Exist", Toast.LENGTH_SHORT).show()
+                                        }
+                                        else {
+                                            val userRequest = UserRequest(name,email,password,confirmPassword)
+
+                                            lifecycleScope.launch {
+                                                registrationViewModel.registerUser(userRequest)
+                                            }
+                                            Toast.makeText(
+                                                requireContext(),
+                                                "Registration Successful",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                            loading.isDismiss()
+                                        }
+
+                                    })
+                                notRegister = false
+                            }
+                            else{
+                                registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
+                                loading.isDismiss()
+                            }
+                        }
+
             }
         }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.crudretrofitapi.contactHome.addContact.model.AddContactRequest
 import com.example.crudretrofitapi.contactHome.displayContact.model.AllContactResponseItem
 import com.example.crudretrofitapi.contactHome.displayContact.viewModel.ContactViewModel
@@ -18,6 +19,7 @@ import com.example.crudretrofitapi.sharedPreference.PrefManager
 import com.example.crudretrofitapi.userAuthentication.model.signup.UserRequest
 import com.example.crudretrofitapi.userAuthentication.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class AddContactFragment : Fragment() {
@@ -69,7 +71,9 @@ class AddContactFragment : Fragment() {
             else{
                             val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
                             val contactModel = AddContactRequest(email,name,number)
-                            contactViewModel.addContact(id.toString(),contactModel)
+                lifecycleScope.launch {
+                    contactViewModel.addContact(id.toString(),contactModel)
+                }
                             Toast.makeText(requireContext(),"User is Save", Toast.LENGTH_SHORT).show()
                             Log.i(it.toString(),"User Save Add Fragment")
 

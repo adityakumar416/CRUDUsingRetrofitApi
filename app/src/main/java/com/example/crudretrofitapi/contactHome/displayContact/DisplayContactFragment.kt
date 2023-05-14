@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.crudretrofitapi.contactHome.addContact.model.AddContactResponse
@@ -19,6 +20,7 @@ import com.example.crudretrofitapi.contactHome.displayContact.viewModel.ContactV
 import com.example.crudretrofitapi.databinding.FragmentDisplayContactBinding
 import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
+import kotlinx.coroutines.launch
 
 class DisplayContactFragment : Fragment(),DeleteContact {
 
@@ -33,13 +35,6 @@ class DisplayContactFragment : Fragment(),DeleteContact {
         // Inflate the layout for this fragment
         binding =  FragmentDisplayContactBinding.inflate(inflater, container, false)
 
-        showData()
-
-
-        return binding.root
-    }
-
-    private fun showData() {
 
         prefManager = PrefManager(requireContext())
         val adapter = DisplayContactAdapter()
@@ -67,17 +62,29 @@ class DisplayContactFragment : Fragment(),DeleteContact {
 
         val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
         binding.textView3.text = id.toString()
-        contactViewModel.getAllContact(id.toString())?.observe(viewLifecycleOwner,listObserver)
+       
+            contactViewModel.getAllContact(id.toString())?.observe(viewLifecycleOwner,listObserver)
+
+        
+
+        return binding.root
     }
+
+
 
     override fun onResume() {
         super.onResume()
-        showData()
+        val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
+
+            contactViewModel.getAllContact(id.toString())
+
     }
 
     override fun deleteContact(allContactResponseItem: AllContactResponseItem) {
         val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
-        contactViewModel.deleteContact(id.toString(),allContactResponseItem._id)
+        lifecycleScope.launch {
+            contactViewModel.deleteContact(id.toString(),allContactResponseItem._id)
+        }
         Toast.makeText(requireContext(),"Contact is Delete.", Toast.LENGTH_SHORT).show()
 
 

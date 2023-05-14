@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.crudretrofitapi.R
 import com.example.crudretrofitapi.databinding.FragmentLoginBinding
@@ -17,6 +18,7 @@ import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
 import com.example.crudretrofitapi.userAuthentication.userViewModel.RegistrationViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
  private lateinit var binding: FragmentLoginBinding
@@ -49,6 +51,7 @@ class LoginFragment : Fragment() {
                 Snackbar.make(binding.passwordEditText, "Password is Mandatory.", Snackbar.LENGTH_SHORT).show();
             }
             else{
+                lifecycleScope.launch {
                     if (notRegisterLoginObserver){
                         registrationViewModel.loginUser(email, password)?.observe(viewLifecycleOwner,
                             Observer {response->
@@ -59,12 +62,12 @@ class LoginFragment : Fragment() {
 
                                 }
                                 else{
-                                   // val checkEmail = prefManager.getValue(Constant.PREF_IS_EMAIL)
+                                    // val checkEmail = prefManager.getValue(Constant.PREF_IS_EMAIL)
 
                                     if(email==response.email){
                                         Toast.makeText(requireContext(),"Login Successful", Toast.LENGTH_SHORT).show()
                                         prefManager.checkLogin(Constant.PREF_IS_LOGIN,true)
-                                       prefManager.userId(Constant.PREF_IS_USER_ID,response._id)
+                                        prefManager.userId(Constant.PREF_IS_USER_ID,response._id)
                                         val intent = Intent(requireContext(),DashboardActivity::class.java)
                                         startActivity(intent)
                                     }
@@ -77,10 +80,12 @@ class LoginFragment : Fragment() {
                             })
                         notRegisterLoginObserver = false
                     }
-                else{
+                    else{
                         registrationViewModel.loginUser(email, password)
 
                     }
+                }
+
             }
         }
 
