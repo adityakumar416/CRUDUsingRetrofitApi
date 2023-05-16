@@ -36,63 +36,6 @@ class DisplayContactFragment : Fragment(),DeleteContact {
         binding =  FragmentDisplayContactBinding.inflate(inflater, container, false)
 
 
-        prefManager = PrefManager(requireContext())
-        val adapter = DisplayContactAdapter()
-        val recyclerView = binding.recyclerView
 
-        recyclerView.adapter = adapter
-        adapter.deleteContact = this
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
-                return true
-            }
-        })
-
-        val listObserver = Observer<AllContactResponse>{
-                newList->
-            adapter.setData(newList)
-        }
-
-        val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
-        binding.textView3.text = id.toString()
-       
-            contactViewModel.getAllContact(id.toString())?.observe(viewLifecycleOwner,listObserver)
-
-        
-
-        return binding.root
-    }
-
-
-
-    override fun onResume() {
-        super.onResume()
-        val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
-
-            contactViewModel.getAllContact(id.toString())
-
-    }
-
-    override fun deleteContact(allContactResponseItem: AllContactResponseItem) {
-        val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
-        lifecycleScope.launch {
-            contactViewModel.deleteContact(id.toString(),allContactResponseItem._id)
-        }
-        Toast.makeText(requireContext(),"Contact is Delete.", Toast.LENGTH_SHORT).show()
-
-
-    }
-
-    override fun updateContact(contact: AllContactResponseItem) {
-        val action = DisplayContactFragmentDirections.actionShowContactToUpdateContactFragment(contact)
-        findNavController().navigate(action)
-    }
 
 }
