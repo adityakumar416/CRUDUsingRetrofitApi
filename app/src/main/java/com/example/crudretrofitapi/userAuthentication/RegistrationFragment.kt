@@ -70,7 +70,7 @@ class RegistrationFragment : Fragment() {
 
             else{
 
-                        lifecycleScope.launch {
+
                             if(notRegister){
                                 loading.startLoading()
                                 registrationViewModel.checkUserExist(binding.emailEditText.text.toString())?.observe(viewLifecycleOwner,
@@ -101,7 +101,7 @@ class RegistrationFragment : Fragment() {
                                 registrationViewModel.checkUserExist(binding.emailEditText.text.toString())
                                 loading.isDismiss()
                             }
-                        }
+
 
             }
         }

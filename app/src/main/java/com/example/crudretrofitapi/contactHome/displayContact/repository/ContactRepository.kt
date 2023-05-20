@@ -45,7 +45,7 @@ object ContactRepository {
     }
 
 
-    suspend fun addUser(id: String,contactDataItem: AddContactRequest):MutableLiveData<AddContactResponse>{
+    fun addUser(id: String,contactDataItem: AddContactRequest):MutableLiveData<AddContactResponse>{
         val call = RetrofitInstance.apiInterface.addContact(id,contactDataItem)
 
         call.enqueue(object : Callback<AddContactResponse?> {
@@ -66,7 +66,7 @@ object ContactRepository {
     }
 
 
-    suspend fun updateUser(id:String,idOfContact: String,updateModel: UpdateModel):MutableLiveData<Boolean>{
+    fun updateUser(id:String,idOfContact: String,updateModel: UpdateModel):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.updateContact(id,idOfContact,updateModel)
 
         call.enqueue(object : Callback<Void> {
@@ -90,7 +90,7 @@ object ContactRepository {
     }
 
 
-    suspend fun deleteContact(id:String,idOfContact: String):MutableLiveData<Boolean>{
+    fun deleteContact(id:String,idOfContact: String):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.deleteContact(id,idOfContact)
 
         call.enqueue(object : Callback<Any?> {
@@ -117,7 +117,7 @@ object ContactRepository {
         return deleteContact
     }
 
-    suspend fun isNumberExist(id:String,number:String):MutableLiveData<Boolean>{
+    fun isNumberExist(id:String,number:String):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.getAllContact(id)
 
         call.enqueue(object : Callback<AllContactResponse?> {

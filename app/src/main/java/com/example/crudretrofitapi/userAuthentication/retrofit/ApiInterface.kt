@@ -19,20 +19,20 @@ import retrofit2.http.Path
 interface ApiInterface {
 
     @POST("signup")
-    suspend fun registerUser(@Body userModel: UserRequest) : Call<UserResponse>
+    fun registerUser(@Body userModel: UserRequest) : Call<UserResponse>
 
     @POST("{id}")
-    suspend fun addContact(@Path("id") id : String,@Body addContactRequest: AddContactRequest) : Call<AddContactResponse>
+    fun addContact(@Path("id") id : String,@Body addContactRequest: AddContactRequest) : Call<AddContactResponse>
 
     @GET("signup")
-    suspend fun getAllUser(): Call<GetAllUserResponse>
+    fun getAllUser(): Call<GetAllUserResponse>
 
     @GET("{id}")
     fun getAllContact(@Path("id") id : String) : Call<AllContactResponse>
 
     @PUT("{userid}/{contactid}")
-    suspend fun updateContact(@Path("userid") userid:String, @Path("contactid") contactid:String,@Body updateModel: UpdateModel) : Call<Void>
+    fun updateContact(@Path("userid") userid:String, @Path("contactid") contactid:String,@Body updateModel: UpdateModel) : Call<Void>
     @DELETE("{userid}/{contactid}")
-    suspend fun deleteContact(@Path("userid") userid : String,@Path("contactid") contactId:String) : Call<Any>
+    fun deleteContact(@Path("userid") userid : String,@Path("contactid") contactId:String) : Call<Any>
 
 }

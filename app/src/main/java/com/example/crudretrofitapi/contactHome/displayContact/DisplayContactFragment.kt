@@ -1,5 +1,6 @@
 package com.example.crudretrofitapi.contactHome.displayContact
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ class DisplayContactFragment : Fragment(),DeleteContact {
     private val contactViewModel:ContactViewModel by viewModels()
     private lateinit var prefManager:PrefManager
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -7,15 +7,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    private val retrofit by lazy {
-        Retrofit.Builder().baseUrl("https://crudcrud.com/api/365908d7b7d7470da629f869c0682b01/")
+    private val retrofit:Retrofit.Builder by lazy {
+        Retrofit.Builder().baseUrl("https://crudcrud.com/api/6581d90cdd0e4199b4447bc66cb8e923/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(OkHttpClient())
-            .build()
+
     }
 
-    val apiInterface by lazy {
-        retrofit.create(ApiInterface::class.java)
+    val apiInterface:ApiInterface by lazy {
+        retrofit
+        .build()
+        .create(ApiInterface::class.java)
     }
 
 }

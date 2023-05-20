@@ -82,7 +82,6 @@ class UpdateContactFragment : Fragment() {
                                 val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
 
                                 val updateContactRequestItem = UpdateModel(email,name,number)
-                lifecycleScope.launch {
                     contactViewModel.updateContact(id.toString(),args.currentUser._id,updateContactRequestItem)?.observe(viewLifecycleOwner,
                         Observer{
                                 response -> if(response ==true ) {
@@ -97,7 +96,7 @@ class UpdateContactFragment : Fragment() {
                 }
 
             }
-        }
+
 
 
 

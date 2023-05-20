@@ -23,32 +23,26 @@ object UserRepository {
 
 
     @SuppressLint("SuspiciousIndentation")
-    suspend fun registerUser(userRequest: UserRequest):MutableLiveData<UserResponse>{
+    fun registerUser(userRequest: UserRequest):MutableLiveData<UserResponse>{
 
         val call = RetrofitInstance.apiInterface.registerUser(userRequest)
 
-            call.enqueue(object : Callback<UserResponse?> {
-                override fun onResponse(
-                    call: Call<UserResponse?>,
-                    response: Response<UserResponse?>
-                ) {
-                    Log.i("error", response.toString())
+        call.enqueue(object : Callback<UserResponse?> {
+            override fun onResponse(call: Call<UserResponse?>, response: Response<UserResponse?>) {
 
-                    userResponse.value = response.body()
+                Log.d("DEBUG resp :",response.body().toString())
 
+                userResponse.value = response.body()
+            }
 
-
-                }
-
-                override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
-                    Log.i("error", t.message.toString())
-
-                }
-            })
+            override fun onFailure(call: Call<UserResponse?>, t: Throwable) {
+                Log.d("DEBUG error :",t.message.toString())
+            }
+        })
         return userResponse
     }
 
-    suspend fun loginUser(email: String, password:String):MutableLiveData<ParticularUserResponseItem>?{
+    fun loginUser(email: String, password:String):MutableLiveData<ParticularUserResponseItem>?{
 
         val call = RetrofitInstance.apiInterface.getAllUser()
 
@@ -83,7 +77,7 @@ object UserRepository {
     }
 
 
-    suspend fun checkUserExist(email: String):MutableLiveData<Boolean>{
+     fun checkUserExist(email: String):MutableLiveData<Boolean>{
 
         val call = RetrofitInstance.apiInterface.getAllUser()
 
