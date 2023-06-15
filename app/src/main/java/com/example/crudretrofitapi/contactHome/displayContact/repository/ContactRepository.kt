@@ -25,7 +25,7 @@ object ContactRepository {
     var deleteContact = MutableLiveData<Boolean>()
     val isNumberExist = MutableLiveData<Boolean>()
 
-     fun getAllContact(id:String):MutableLiveData<AllContactResponse>{
+     suspend fun getAllContact(id:String):MutableLiveData<AllContactResponse>{
 
         val call = RetrofitInstance.apiInterface.getAllContact(id)
 
@@ -45,7 +45,7 @@ object ContactRepository {
     }
 
 
-    fun addUser(id: String,contactDataItem: AddContactRequest):MutableLiveData<AddContactResponse>{
+     fun addUser(id: String,contactDataItem: AddContactRequest):MutableLiveData<AddContactResponse>{
         val call = RetrofitInstance.apiInterface.addContact(id,contactDataItem)
 
         call.enqueue(object : Callback<AddContactResponse?> {
@@ -66,7 +66,7 @@ object ContactRepository {
     }
 
 
-    fun updateUser(id:String,idOfContact: String,updateModel: UpdateModel):MutableLiveData<Boolean>{
+    suspend fun updateUser(id:String,idOfContact: String,updateModel: UpdateModel):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.updateContact(id,idOfContact,updateModel)
 
         call.enqueue(object : Callback<Void> {
@@ -90,7 +90,7 @@ object ContactRepository {
     }
 
 
-    fun deleteContact(id:String,idOfContact: String):MutableLiveData<Boolean>{
+    suspend fun deleteContact(id:String,idOfContact: String):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.deleteContact(id,idOfContact)
 
         call.enqueue(object : Callback<Any?> {
@@ -117,7 +117,7 @@ object ContactRepository {
         return deleteContact
     }
 
-    fun isNumberExist(id:String,number:String):MutableLiveData<Boolean>{
+  /*  suspend fun isNumberExist(id:String,number:String):MutableLiveData<Boolean>{
         val call = RetrofitInstance.apiInterface.getAllContact(id)
 
         call.enqueue(object : Callback<AllContactResponse?> {
@@ -130,11 +130,11 @@ object ContactRepository {
             }
 
             override fun onFailure(call: Call<AllContactResponse?>, t: Throwable) {
-                TODO("Not yet implemented")
+
             }
         })
         return isNumberExist
-    }
+    }*/
 
 
 }

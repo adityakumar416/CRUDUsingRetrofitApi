@@ -72,7 +72,9 @@ class AddContactFragment : Fragment() {
                             val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
                             val contactModel = AddContactRequest(email,name,number)
 
-                    contactViewModel.addContact(id.toString(),contactModel)
+                        contactViewModel.addContact(id.toString(),contactModel)
+
+
 
                             Toast.makeText(requireContext(),"User is Save", Toast.LENGTH_SHORT).show()
                             Log.i(it.toString(),"User Save Add Fragment")

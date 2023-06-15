@@ -23,7 +23,7 @@ object UserRepository {
 
 
     @SuppressLint("SuspiciousIndentation")
-    fun registerUser(userRequest: UserRequest):MutableLiveData<UserResponse>{
+    suspend fun registerUser(userRequest: UserRequest):MutableLiveData<UserResponse>{
 
         val call = RetrofitInstance.apiInterface.registerUser(userRequest)
 
@@ -42,7 +42,7 @@ object UserRepository {
         return userResponse
     }
 
-    fun loginUser(email: String, password:String):MutableLiveData<ParticularUserResponseItem>?{
+    suspend fun loginUser(email: String, password:String):MutableLiveData<ParticularUserResponseItem>?{
 
         val call = RetrofitInstance.apiInterface.getAllUser()
 
@@ -77,7 +77,7 @@ object UserRepository {
     }
 
 
-     fun checkUserExist(email: String):MutableLiveData<Boolean>{
+     suspend fun checkUserExist(email: String):MutableLiveData<Boolean>{
 
         val call = RetrofitInstance.apiInterface.getAllUser()
 

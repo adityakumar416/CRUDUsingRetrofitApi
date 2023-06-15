@@ -65,8 +65,10 @@ class DisplayContactFragment : Fragment(),DeleteContact {
         val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
         binding.textView3.text = id.toString()
 
+        lifecycleScope.launch {
             contactViewModel.getAllContact(id.toString())?.observe(viewLifecycleOwner,listObserver)
 
+        }
 
 
         return binding.root
@@ -78,8 +80,10 @@ class DisplayContactFragment : Fragment(),DeleteContact {
         super.onResume()
         val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
 
+        lifecycleScope.launch {
             contactViewModel.getAllContact(id.toString())
 
+        }
     }
 
     override fun deleteContact(allContactResponseItem: AllContactResponseItem) {

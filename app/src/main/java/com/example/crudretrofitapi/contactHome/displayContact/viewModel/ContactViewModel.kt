@@ -20,24 +20,24 @@ class ContactViewModel : ViewModel() {
     private var contactDelete:MutableLiveData<Boolean>?=null
     private var updateContact:MutableLiveData<Boolean>?=null
 
-    fun getAllContact(id:String):LiveData<AllContactResponse>?{
+    suspend fun getAllContact(id:String):LiveData<AllContactResponse>?{
 
        getAllContact = ContactRepository.getAllContact(id)
 
         return getAllContact
     }
 
-    fun addContact(id: String, contactDataItem: AddContactRequest): LiveData<AddContactResponse>?{
+     fun addContact(id: String, contactDataItem: AddContactRequest): LiveData<AddContactResponse>?{
         addViewModel = ContactRepository.addUser(id,contactDataItem)
         return addViewModel
     }
 
-     fun updateContact(id: String, idOfContact:String, contactDataItem: UpdateModel):LiveData<Boolean>?{
+     suspend fun updateContact(id: String, idOfContact:String, contactDataItem: UpdateModel):LiveData<Boolean>?{
        updateContact = ContactRepository.updateUser(id,idOfContact,contactDataItem)
         return updateContact
 
     }
-    fun deleteContact(id: String, idOfContact:String):LiveData<Boolean>?{
+    suspend fun deleteContact(id: String, idOfContact:String):LiveData<Boolean>?{
         contactDelete = ContactRepository.deleteContact(id, idOfContact)
         return contactDelete
     }

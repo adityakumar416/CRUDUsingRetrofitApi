@@ -14,17 +14,17 @@ class RegistrationViewModel:ViewModel() {
     private var userExistLiveData : MutableLiveData<Boolean>?=null
     private var particularUserResponseItem: MutableLiveData<ParticularUserResponseItem>? = null
 
-            fun registerUser(userRequest: UserRequest): LiveData<UserResponse>?{
+            suspend fun registerUser(userRequest: UserRequest): LiveData<UserResponse>?{
                 registrationViewModel = UserRepository.registerUser(userRequest)
                 return registrationViewModel
             }
 
-     fun checkUserExist(email: String): LiveData<Boolean>?{
+     suspend fun checkUserExist(email: String): LiveData<Boolean>?{
         userExistLiveData = UserRepository.checkUserExist(email)
         return userExistLiveData
     }
 
-    fun loginUser(email: String,password:String):LiveData<ParticularUserResponseItem>?{
+    suspend fun loginUser(email: String,password:String):LiveData<ParticularUserResponseItem>?{
 
         particularUserResponseItem= UserRepository.loginUser(email, password)
 
