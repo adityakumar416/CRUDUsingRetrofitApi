@@ -13,6 +13,8 @@ import com.example.crudretrofitapi.contactHome.update.model.UpdateModel
 import com.example.crudretrofitapi.sharedPreference.Constant
 import com.example.crudretrofitapi.sharedPreference.PrefManager
 import com.example.crudretrofitapi.userAuthentication.retrofit.RetrofitInstance
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,27 +27,29 @@ object ContactRepository {
     var deleteContact = MutableLiveData<Boolean>()
     val isNumberExist = MutableLiveData<Boolean>()
 
-     suspend fun getAllContact(id:String):MutableLiveData<AllContactResponse>{
+     suspend fun getAllContact(id:String):MutableLiveData<AllContactResponse> {
 
-        val call = RetrofitInstance.apiInterface.getAllContact(id)
+         return withContext(Dispatchers.IO) {
+             val call = RetrofitInstance.apiInterface.getAllContact(id)
 
-        call.enqueue(object : Callback<AllContactResponse?> {
-            override fun onResponse(
-                call: Call<AllContactResponse?>,
-                response: Response<AllContactResponse?>
-            ) {
-                getAllContactResponse.value = response.body()
-            }
+             call.enqueue(object : Callback<AllContactResponse?> {
+                 override fun onResponse(
+                     call: Call<AllContactResponse?>,
+                     response: Response<AllContactResponse?>
+                 ) {
+                     getAllContactResponse.value = response.body()
+                 }
 
-            override fun onFailure(call: Call<AllContactResponse?>, t: Throwable) {
-                Log.i("error", t.message.toString())
-            }
-        })
-        return getAllContactResponse
-    }
+                 override fun onFailure(call: Call<AllContactResponse?>, t: Throwable) {
+                     Log.i("error", t.message.toString())
+                 }
+             })
+             getAllContactResponse
+         }
+     }
 
 
-     fun addUser(id: String,contactDataItem: AddContactRequest):MutableLiveData<AddContactResponse>{
+    suspend fun addUser(id: String,contactDataItem: AddContactRequest):MutableLiveData<AddContactResponse>{
         val call = RetrofitInstance.apiInterface.addContact(id,contactDataItem)
 
         call.enqueue(object : Callback<AddContactResponse?> {

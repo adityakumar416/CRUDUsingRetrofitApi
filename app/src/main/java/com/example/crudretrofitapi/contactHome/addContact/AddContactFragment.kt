@@ -71,9 +71,9 @@ class AddContactFragment : Fragment() {
             else{
                             val id = prefManager.getValue(Constant.PREF_IS_USER_ID)
                             val contactModel = AddContactRequest(email,name,number)
-
+                    lifecycleScope.launch {
                         contactViewModel.addContact(id.toString(),contactModel)
-
+                    }
 
 
                             Toast.makeText(requireContext(),"User is Save", Toast.LENGTH_SHORT).show()

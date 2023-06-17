@@ -27,7 +27,7 @@ class ContactViewModel : ViewModel() {
         return getAllContact
     }
 
-     fun addContact(id: String, contactDataItem: AddContactRequest): LiveData<AddContactResponse>?{
+    suspend fun addContact(id: String, contactDataItem: AddContactRequest): LiveData<AddContactResponse>?{
         addViewModel = ContactRepository.addUser(id,contactDataItem)
         return addViewModel
     }

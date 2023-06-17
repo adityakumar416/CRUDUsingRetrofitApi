@@ -22,7 +22,7 @@ interface ApiInterface {
     suspend fun registerUser(@Body userModel: UserRequest) : Call<UserResponse>
 
     @POST("{id}")
-     fun addContact(@Path("id") id : String,@Body addContactRequest: AddContactRequest) : Call<AddContactResponse>
+    suspend fun addContact(@Path("id") id : String,@Body addContactRequest: AddContactRequest) : Call<AddContactResponse>
 
     @GET("signup")
     suspend fun getAllUser(): Call<GetAllUserResponse>

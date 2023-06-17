@@ -69,33 +69,6 @@ class DisplayContactAdapter: RecyclerView.Adapter<DisplayContactAdapter.ViewHold
         notifyDataSetChanged()
     }
 
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults {
-                var filteredList = AllContactResponse()
-                if(constraint.isNullOrBlank()){
-                    filteredList = contactListCopy
-                }
-                else{
-                    val filterPattern = constraint.toString().toLowerCase(Locale.ROOT).trim()
-                    contactListCopy.forEach {
-                        item->
-                        if(item.name.toLowerCase(Locale.ROOT).contains(filterPattern) || item.number.contains(filterPattern) || item.email.contains(filterPattern)){
-                            filteredList.add(item)
-                        }
-                    }
-                }
-                val filterResults = FilterResults()
-                filterResults.values = filteredList
-                return filterResults
-            }
-
-            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filteredItemList = results?.values as AllContactResponse
-                contactList = filteredItemList
-                notifyDataSetChanged()
-            }
-        }
     }
 
 
